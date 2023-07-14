@@ -1,0 +1,20 @@
+PODS:
+  - KeychainAccess (4.2.2)
+  - R.swift (7.3.2)
+
+DEPENDENCIES:
+  - KeychainAccess
+  - R.swift
+
+SPEC REPOS:
+  trunk:
+    - KeychainAccess
+    - R.swift
+
+SPEC CHECKSUMS:
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
+
+PODFILE CHECKSUM: fc103f7c9e674d1d75c30bb28f1f204668739783
+
+COCOAPODS: 1.12.1
