@@ -10,6 +10,7 @@ import UIKit
 struct Card: Codable {
     let cardNumber: Int
     let isVisa: Bool
+    let createdAt: Date
 }
 
 extension Card {

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import UIKit
 
 protocol MainVMDelegate: Coordinator {
     func showDetailCard(for card: Card)
@@ -32,7 +33,10 @@ final class MainVM {
     
     func addCard() {
         var cards = cards.value
-        cards.append(Card(cardNumber: Int.random(in: 1_000_000_000_000_000...9_999_999_999_999_999), isVisa: Bool.random()))
+        cards.append(Card(cardNumber: Int.random( in: 1_000_000_000_000_000...9_999_999_999_999_999),
+                          isVisa: Bool.random(),
+                          createdAt: Date()))
+        cards = cards.sorted { $0.createdAt > $1.createdAt }
         saveCards(cards: cards)
     }
     

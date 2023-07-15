@@ -15,7 +15,6 @@
 		5856CA4A2A6198780030AA46 /* DetailCard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5856CA492A6198780030AA46 /* DetailCard.storyboard */; };
 		5856CA4C2A6199240030AA46 /* DetailCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5856CA4B2A6199240030AA46 /* DetailCardVM.swift */; };
 		58A47A4B2A608D610098C4A9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A47A402A608D610098C4A9 /* MainVC.swift */; };
-		58A47A4C2A608D610098C4A9 /* CardTestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 58A47A412A608D610098C4A9 /* CardTestApp.xcdatamodeld */; };
 		58A47A4D2A608D610098C4A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58A47A442A608D610098C4A9 /* Assets.xcassets */; };
 		58A47A4E2A608D610098C4A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A47A452A608D610098C4A9 /* LaunchScreen.storyboard */; };
 		58A47A4F2A608D610098C4A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A47A472A608D610098C4A9 /* Main.storyboard */; };
@@ -44,7 +43,6 @@
 		5856CA4B2A6199240030AA46 /* DetailCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardVM.swift; sourceTree = "<group>"; };
 		58A47A252A608C010098C4A9 /* CardTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A47A402A608D610098C4A9 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		58A47A422A608D610098C4A9 /* CardTestApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CardTestApp.xcdatamodel; sourceTree = "<group>"; };
 		58A47A442A608D610098C4A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58A47A462A608D610098C4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		58A47A482A608D610098C4A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				58A47A3F2A608D610098C4A9 /* Application */,
-				58A47A412A608D610098C4A9 /* CardTestApp.xcdatamodeld */,
 				58A47A262A608C010098C4A9 /* Products */,
 				F3728D4AE1E63DED4FAB42A3 /* Pods */,
 				E3B843C0D3EF59D3AD15E9F0 /* Frameworks */,
@@ -370,7 +367,6 @@
 				58F953752A60995E00852CBA /* MainVM.swift in Sources */,
 				5856CA482A61982D0030AA46 /* DetailCardVC.swift in Sources */,
 				5856CA3C2A6134F30030AA46 /* CardTVC.swift in Sources */,
-				58A47A4C2A608D610098C4A9 /* CardTestApp.xcdatamodeld in Sources */,
 				58F9536A2A60967300852CBA /* Coordinator.swift in Sources */,
 				58F953702A60981C00852CBA /* Makeable.swift in Sources */,
 				58F953662A60958400852CBA /* AppCoordinator.swift in Sources */,
@@ -610,19 +606,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		58A47A412A608D610098C4A9 /* CardTestApp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				58A47A422A608D610098C4A9 /* CardTestApp.xcdatamodel */,
-			);
-			currentVersion = 58A47A422A608D610098C4A9 /* CardTestApp.xcdatamodel */;
-			path = CardTestApp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 58A47A1D2A608C010098C4A9 /* Project object */;
 }

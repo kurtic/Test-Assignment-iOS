@@ -13,6 +13,10 @@ extension MainVC: Makeable {
 
 final class MainVC: UIViewController {
     
+    private enum C {
+        static let maxAmountCards = 50
+    }
+    
     // MARK: - IBOutlets
     @IBOutlet private weak var tableView: UITableView!
     
@@ -31,7 +35,9 @@ final class MainVC: UIViewController {
     private func binding() {
         guard let viewModel = viewModel else { return }
         viewModel.cards.sink(receiveValue: { [unowned self] _ in
-           tableView.reloadData()
+           navigationItem.rightBarButtonItem?.isEnabled = viewModel.cards.value.count < C.maxAmountCards
+            tableView.isHidden = viewModel.cards.value.isEmpty
+            tableView.reloadData()
         }).store(in: &viewModel.cancellable)
     }
     

@@ -17,6 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ще немає збережених карток!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2o3-mZ-TOH">
+                                <rect key="frame" x="74.333333333333329" y="428" width="244.66666666666669" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9xJ-9T-8cP">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -29,6 +35,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2o3-mZ-TOH" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="1Bn-Hb-Am8"/>
+                            <constraint firstItem="2o3-mZ-TOH" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="4Mp-jI-WIl"/>
                             <constraint firstItem="9xJ-9T-8cP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4tz-p9-iEH"/>
                             <constraint firstItem="9xJ-9T-8cP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NX2-nh-gvn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9xJ-9T-8cP" secondAttribute="trailing" id="efz-uW-86q"/>
