@@ -5,7 +5,7 @@
 //  Created by Diachenko Ihor on 14.07.2023.
 //
 
-import Combine
+import Foundation
 
 final class DetailCardVM {
     

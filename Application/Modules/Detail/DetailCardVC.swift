@@ -33,6 +33,5 @@ final class DetailCardVC: UIViewController {
         cardNumberLabel.textColor = (viewModel?.card.isVisa ?? false) ? .darkText : .white
         cardLogoImageView.image = viewModel?.card.logo
         cardView.backgroundColor = viewModel?.card.cardColor
-        
     }
 }

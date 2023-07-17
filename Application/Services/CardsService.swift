@@ -6,11 +6,11 @@
 //
 
 import KeychainAccess
-import Combine
+import ReactiveSwift
 
 protocol CardsUseCase {
-    func saveToKeychain(cards: [Card]) -> AnyPublisher<Void, Error>
-    func loadFromKeychain() -> AnyPublisher<[Card], Error>
+    func saveToKeychain(cards: [Card]) -> SignalProducer<[Card], Error>
+    func loadFromKeychain() -> SignalProducer<[Card], Error>
 }
 
 final class CardsService: CardsUseCase {
@@ -18,32 +18,32 @@ final class CardsService: CardsUseCase {
     let propertyListDecoder = PropertyListDecoder()
     let keychain = Keychain(service: "com.Dyachenko.CardTestApp")
     
-    func saveToKeychain(cards: [Card]) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { [unowned self] promise in
+    func saveToKeychain(cards: [Card]) -> SignalProducer<[Card], Error> {
+        SignalProducer{ [unowned self] (observer, lifetime)  in
             do {
                 let data = try propertyListEncoder.encode(cards)
                 keychain[data: "encodedCardInfo"] = NSData(data: data) as Data
-                promise(.success(()))
+                observer.send(value: cards)
+                observer.sendCompleted()
             } catch {
-                promise(.failure(error))
+                observer.send(error: error)
             }
         }
-        .eraseToAnyPublisher()
     }
     
-    func loadFromKeychain() -> AnyPublisher<[Card], Error> {
-        Future<[Card], Error> { [unowned self] promise in
+    func loadFromKeychain() -> SignalProducer<[Card], Error> {
+        SignalProducer { [unowned self] (observer, lifetime) in
             do {
                 guard let data = keychain[data: "encodedCardInfo"] else {
-                    promise(.success([]))
+                    observer.send(value: [])
                     return
                 }
                 let cards = try propertyListDecoder.decode([Card].self, from: data)
-                promise(.success(cards))
+                observer.send(value: cards)
+                observer.sendCompleted()
             } catch {
-                promise(.failure(error))
+                observer.send(error: error)
             }
         }
-        .eraseToAnyPublisher()
     }
 }

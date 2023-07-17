@@ -5,26 +5,30 @@
 //  Created by Diachenko Ihor on 13.07.2023.
 //
 
-import Combine
-import UIKit
+import ReactiveSwift
 
 protocol MainVMDelegate: Coordinator {
     func showDetailCard(for card: Card)
 }
 
-final class MainVM {
+final class MainVM: NSObject {
     
     // MARK: - Private Properties
     private var useCases: UseCases
     private weak var delegate: MainVMDelegate?
     
-    var cancellable = Set<AnyCancellable>()
-    let cards: CurrentValueSubject<[Card], Never> = CurrentValueSubject([])
+    let cards = MutableProperty<[Card]>([])
+    
+    // MARK: - Actions
+    private lazy var saveCardsAction = Action(execute: useCases.saveToKeychain)
+    private lazy var loadFromKeychainAction = Action(execute: useCases.loadFromKeychain)
     
     // MARK: - Life Cycle
     init(useCases: UseCases, delegate: MainVMDelegate) {
         self.useCases = useCases
         self.delegate = delegate
+        super.init()
+        cards <~ saveCardsAction.values.merge(with: loadFromKeychainAction.values)
     }
     
     func showCardDetails(for card: Card) {
@@ -37,30 +41,19 @@ final class MainVM {
                           isVisa: Bool.random(),
                           createdAt: Date()))
         cards = cards.sorted { $0.createdAt > $1.createdAt }
-        saveCards(cards: cards)
+        saveCardsAction.apply(cards).start()
     }
     
-    func removeCard(at index: Int, completion: @escaping ()->()) {
+    func removeCard(at index: Int, completion: @escaping () -> ()) {
         var cards = cards.value
         cards.remove(at: index)
-        useCases.saveToKeychain(cards: cards).sink { _ in } receiveValue: { [unowned self] _ in
-            self.cards.value = cards
+        saveCardsAction.apply(cards).startWithResult { result in
+            guard case .success = result else { return }
             completion()
         }
-        .store(in: &cancellable)
     }
     
     func getCards() {
-        useCases.loadFromKeychain().sink { _ in } receiveValue: { [unowned self] cards in
-            self.cards.value = cards
-        }
-        .store(in: &cancellable)
-    }
-    
-    func saveCards(cards: [Card]) {
-        useCases.saveToKeychain(cards: cards).sink { _ in } receiveValue: { [unowned self] _ in
-            self.cards.value = cards
-        }
-        .store(in: &cancellable)
+        loadFromKeychainAction.apply().start()
     }
 }

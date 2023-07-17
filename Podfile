@@ -8,7 +8,10 @@ target 'CardTestApp' do
   # Pods for CardTestApp
 
   # Code generation
-  pod 'R.swift'
+  pod 'R.swift', '~> 6.0'
+
+  #Reactive
+  pod 'ReactiveCocoa', '~> 10.1.0'
 
   # Utils
   pod 'KeychainAccess'

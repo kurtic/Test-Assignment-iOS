@@ -31,11 +31,13 @@ final class AppCoordinator: Coordinator {
     func stop() {}
     
     private func configureNavigationBar() {
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithDefaultBackground()
-        navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController.navigationBar.compactAppearance = navigationBarAppearance
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.configureWithDefaultBackground()
+            navigationController.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+            navigationController.navigationBar.standardAppearance = navigationBarAppearance
+            navigationController.navigationBar.compactAppearance = navigationBarAppearance
+        }
     }
 }
 

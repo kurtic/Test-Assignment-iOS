@@ -5,7 +5,8 @@
 //  Created by Diachenko Ihor on 13.07.2023.
 //
 
-import UIKit
+import ReactiveSwift
+import ReactiveCocoa
 
 extension MainVC: Makeable {
     static func make() -> MainVC { R.storyboard.main.mainVC()! }
@@ -34,11 +35,12 @@ final class MainVC: UIViewController {
     
     private func binding() {
         guard let viewModel = viewModel else { return }
-        viewModel.cards.sink(receiveValue: { [unowned self] _ in
-           navigationItem.rightBarButtonItem?.isEnabled = viewModel.cards.value.count < C.maxAmountCards
-            tableView.isHidden = viewModel.cards.value.isEmpty
-            tableView.reloadData()
-        }).store(in: &viewModel.cancellable)
+        reactive.makeBindingTarget { vc, cards in
+            vc.navigationItem.rightBarButtonItem?.isEnabled = cards.count < C.maxAmountCards
+            vc.tableView.isHidden = cards.isEmpty
+        } <~ viewModel.cards
+        
+        tableView.reactive.reloadData <~ viewModel.cards.map { _ in }
     }
     
     @objc private func addButtonTapped() {
@@ -46,8 +48,18 @@ final class MainVC: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension MainVC: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableViewDelegate
+extension MainVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle { .delete }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let card = viewModel?.cards.value[indexPath.row] else { return }
+        viewModel?.showCardDetails(for: card)
+    }
+}
+
+// MARK: -  UITableViewDataSource
+extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.cards.value.count ?? 0
     }
@@ -59,8 +71,6 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle { .delete }
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         tableView.beginUpdates()
@@ -68,10 +78,5 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         tableView.endUpdates()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let card = viewModel?.cards.value[indexPath.row] else { return }
-        viewModel?.showCardDetails(for: card)
     }
 }
