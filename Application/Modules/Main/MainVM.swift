@@ -11,7 +11,7 @@ protocol MainVMDelegate: Coordinator {
     func showDetailCard(for card: Card)
 }
 
-final class MainVM: NSObject {
+final class MainVM {
     
     // MARK: - Private Properties
     private var useCases: UseCases
@@ -27,7 +27,6 @@ final class MainVM: NSObject {
     init(useCases: UseCases, delegate: MainVMDelegate) {
         self.useCases = useCases
         self.delegate = delegate
-        super.init()
         cards <~ saveCardsAction.values.merge(with: loadFromKeychainAction.values)
     }
     
